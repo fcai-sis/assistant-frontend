@@ -8,7 +8,7 @@ import { updateProfileValues } from "./ProfileDisplay";
 export const getProfileAction = async () => {
   const accessToken = await getAccessToken();
 
-  const response = await profileAPI.get(`/instructor-profile`, {
+  const response = await profileAPI.get(`/ta-profile`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
@@ -58,7 +58,7 @@ export const updateProfileAction = async (data: updateProfileValues) => {
     },
   };
 
-  const response = await profileAPI.patch(`/instructor-profile`, requestBody, {
+  const response = await profileAPI.patch(`/ta-profile`, requestBody, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },

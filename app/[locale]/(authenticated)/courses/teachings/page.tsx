@@ -6,10 +6,10 @@ import { revalidatePath } from "next/cache";
 import Link from "next/link";
 import Card from "@/components/Card";
 
-export const getInstructorTeachings = async (page?: number) => {
+export const getTaTeachings = async (page?: number) => {
   const accessToken = await getAccessToken();
 
-  const response = await scheduleAPI.get(`/instructor-teaching/me`, {
+  const response = await scheduleAPI.get(`/ta-teaching/me`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
@@ -34,7 +34,7 @@ export default async function Page({
 
   const page = getCurrentPage(searchParams);
 
-  const response = await getInstructorTeachings(page);
+  const response = await getTaTeachings(page);
   const teachings = response.myTeachings;
   const totalTeachings = response.totalTeachings;
 
@@ -74,17 +74,6 @@ export default async function Page({
               </span>
               {teaching.course.creditHours}
             </p>
-            <div className='flex justify-center'>
-              <Link
-                className='mt-2 inline-block bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-300'
-                href={`/courses/teachings/${teaching.course.code}`}
-              >
-                {tt(locale, {
-                  en: "View Enrolled Students",
-                  ar: "عرض الطلاب المسجلين",
-                })}
-              </Link>
-            </div>
           </Card>
         ))}
       </div>

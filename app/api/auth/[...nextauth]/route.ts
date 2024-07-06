@@ -1,7 +1,7 @@
 import dbConnect from "@/database";
 import {
-  InstructorModel,
-  InstructorType,
+  TeachingAssistantModel,
+  TeachingAssistantType,
   UserModel,
 } from "@fcai-sis/shared-models";
 import { Role } from "@fcai-sis/shared-middlewares";
@@ -30,15 +30,14 @@ const handler = NextAuth({
 
         await dbConnect();
 
-        const instructor: InstructorType | null = await InstructorModel.findOne(
-          {
+        const ta: TeachingAssistantType | null =
+          await TeachingAssistantModel.findOne({
             email: credentials.email,
-          }
-        );
+          });
 
-        if (!instructor) return null;
+        if (!ta) return null;
 
-        const user = await UserModel.findById(instructor.user);
+        const user = await UserModel.findById(ta.user);
 
         if (!user) return null;
 
@@ -52,7 +51,7 @@ const handler = NextAuth({
         return {
           id: user._id,
           email: user._id,
-          name: Role.INSTRUCTOR,
+          name: Role.TEACHING_ASSISTANT,
         };
       },
     }),
